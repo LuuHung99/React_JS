@@ -1,73 +1,89 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import TodoList from './Todolist/index';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import TodoList from "./Todolist/index";
+import TodoForm from "../TodoForm/todoForm";
 
 TodoFeature.propTypes = {
-    todoList: PropTypes.array,
-    onTodoClick: PropTypes.func
+  todoList: PropTypes.array,
+  onTodoClick: PropTypes.func,
 };
 
 function TodoFeature() {
-    const initTodoList = [
-        {
-            id: 1,
-            title: 'Hung',
-            status: 'new'
-        },
+  const initTodoList = [
+    {
+      id: 1,
+      title: "Hung",
+      status: "new",
+    },
 
-        {
-            id: 2,
-            title: 'New' ,
-            status: 'complete'   
-        },
+    {
+      id: 2,
+      title: "New",
+      status: "complete",
+    },
 
-        {
-            id: 3,
-            title: 'Update',
-            status: 'new'
-        }
-    ];
+    {
+      id: 3,
+      title: "Update",
+      status: "new",
+    },
+  ];
 
-    const [todoList, setTodoList] = useState(initTodoList);
-    const [showTodoList, setShowTodoList] = useState('all');
+  const [todoList, setTodoList] = useState(initTodoList);
+  const [showTodoList, setShowTodoList] = useState("all");
 
-    const handleTodoClick = (todo,idex) => {
-        console.log(todo,idex);
-        const newTodoList = [...todoList];
+  const handleTodoClick = (todo, idex) => {
+    console.log(todo, idex);
+    const newTodoList = [...todoList];
 
-        const newTodo = {
-            ...newTodoList[idex],
-            status: newTodoList[idex].status === 'new' ? 'complete' : 'new'
-        }
+    const newTodo = {
+      ...newTodoList[idex],
+      status: newTodoList[idex].status === "new" ? "complete" : "new",
+    };
 
-        newTodoList[idex] = newTodo;
+    newTodoList[idex] = newTodo;
 
-        setTodoList(newTodoList);
+    setTodoList(newTodoList);
+  };
+
+  const handleShowAll = () => {
+    setShowTodoList("all");
+  };
+
+  const handleShowCompleted = () => {
+    setShowTodoList("complete");
+  };
+
+  const handleShowNew = () => {
+    setShowTodoList("new");
+  };
+
+  const renderStatus = todoList.filter(
+    (todo) => showTodoList === "all" || showTodoList === todo.status
+  );
+
+  function handleTodoFormSubmit(formValue) {
+    console.log('value', formValue);
+    const newTodo = {
+      id: todoList.length + 1,
+      ...formValue
     }
 
-    const handleShowAll = () => {
-        setShowTodoList('all');
-    }
+    const newTodoList = [...todoList];
+    newTodoList.push(newTodo);
+    setTodoList(newTodoList);
+  }
+  // console.log(renderStatus);
 
-    const handleShowCompleted = () => {
-        setShowTodoList('complete');
-    }
-
-    const handleShowNew = () => {
-        setShowTodoList('new');
-    }
-
-    const renderStatus = todoList.filter(todo => showTodoList === 'all' || showTodoList === todo.status)
-    // console.log(renderStatus);
-
-    return (
-        <div>
-            <TodoList todoList={renderStatus} onTodoClick={handleTodoClick}/>
-            <button onClick={handleShowAll}>Show All</button>
-            <button onClick={handleShowCompleted}>Show complete</button>
-            <button onClick={handleShowNew}>Show New</button>
-        </div>
-    );
+  return (
+    <div>
+      <TodoForm onSubmit={handleTodoFormSubmit}/>
+      <TodoList todoList={renderStatus} onTodoClick={handleTodoClick} />
+      <button onClick={handleShowAll}>Show All</button>
+      <button onClick={handleShowCompleted}>Show complete</button>
+      <button onClick={handleShowNew}>Show New</button>
+    </div>
+  );
 }
 
 export default TodoFeature;
