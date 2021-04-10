@@ -1,7 +1,7 @@
 import {React} from 'react';
 // import logo from './logo.svg';
 // import './App.css';
-// import TodoList from './components/Todo/index';
+import TodoList from './components/Todo/index';
 // import HomePageList from './components/Home/index';
 // import { Route, Switch } from 'react-router-dom';
 // import categoryApi from './components/api/categoryApi';
@@ -12,8 +12,10 @@ import {React} from 'react';
 // import ColorBox from './components/ColorBox/index';
 // import TodoForm from './components/TodoForm/todoForm';
 // import FetchApi from './components/api/fetchApi';
-import Colock from './components/Clock/clock';
-import Color from './components/Color/color';
+// import Colock from './components/Clock/clock';
+// import Color from './components/Color/color';
+// import Panagation from './components/Panigation/panigation';
+// import ChangeColor from './React/vd1/changeColor';
 
 function App() {
   // useEffect(() => {
@@ -29,9 +31,10 @@ function App() {
 
   return (
     <div>
-      
-      <Colock />
-      <Color />
+      <TodoList />
+      {/* <Colock />
+      <Color /> */}
+      {/* <ReminderComplete /> */}
       {/* <TodoList /> */}
       {/* <FetchApi /> */}
 
